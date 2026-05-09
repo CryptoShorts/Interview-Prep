@@ -4073,7 +4073,15 @@ function openModal(id) {
       <div class="framework-row"><div class="framework-label star-r">${sl2.R}</div><div class="framework-value">${lq.star.result}</div></div>
     `;
   } else {
-    document.getElementById('star-rows').innerHTML = '<div class="framework-row" style="color:var(--muted);font-size:0.85rem">Use the Situation → Task → Action → Result structure to frame your answer.</div>';
+    const fb = lang === 'de'
+      ? { s: 'Beschreibe den Kontext kurz — wann, wo, welche Rolle du hattest.', t: 'Was war die konkrete Herausforderung oder das Ziel?', a: 'Beschreibe die konkreten Schritte, die DU unternommen hast — ca. 60 % deiner Antwort.', r: 'Quantifiziere das Ergebnis — was hat sich verbessert oder verändert?' }
+      : { s: 'Set the context — when, where, what role you were in.', t: 'What was the specific challenge or goal you faced?', a: 'Describe the concrete steps YOU took — aim for 60% of your answer.', r: 'Quantify the outcome — what changed, improved, or was delivered?' };
+    document.getElementById('star-rows').innerHTML = `
+      <div class="framework-row"><div class="framework-label star-s">${sl2.S}</div><div class="framework-value">${fb.s}</div></div>
+      <div class="framework-row"><div class="framework-label star-t">${sl2.T}</div><div class="framework-value">${fb.t}</div></div>
+      <div class="framework-row"><div class="framework-label star-a">${sl2.A}</div><div class="framework-value">${fb.a}</div></div>
+      <div class="framework-row"><div class="framework-label star-r">${sl2.R}</div><div class="framework-value">${fb.r}</div></div>
+    `;
   }
 
   // CAR
@@ -4085,7 +4093,14 @@ function openModal(id) {
       <div class="framework-row"><div class="framework-label car-r">${cl.R}</div><div class="framework-value">${lq.car.result}</div></div>
     `;
   } else {
-    document.getElementById('car-rows').innerHTML = '<div class="framework-row" style="color:var(--muted);font-size:0.85rem">Use the Context → Action → Result structure to frame your answer concisely.</div>';
+    const fc = lang === 'de'
+      ? { c: 'Erkläre den Hintergrund — was war die Ausgangssituation?', a: 'Beschreibe deinen konkreten Ansatz und die Maßnahmen, die du ergriffen hast.', r: 'Was war das messbare Ergebnis deines Handelns?' }
+      : { c: 'Explain the background — what was the starting situation?', a: 'Describe your concrete approach and the steps you took.', r: 'What was the measurable result of your actions?' };
+    document.getElementById('car-rows').innerHTML = `
+      <div class="framework-row"><div class="framework-label car-c">${cl.C}</div><div class="framework-value">${fc.c}</div></div>
+      <div class="framework-row"><div class="framework-label car-a">${cl.A}</div><div class="framework-value">${fc.a}</div></div>
+      <div class="framework-row"><div class="framework-label car-r">${cl.R}</div><div class="framework-value">${fc.r}</div></div>
+    `;
   }
 
   // Pitfalls
@@ -4095,8 +4110,15 @@ function openModal(id) {
     ).join('');
     document.getElementById('do-instead-text').textContent = lq.doInstead || '';
   } else {
-    document.getElementById('pitfall-list').innerHTML = '<div class="pitfall-item" style="color:var(--muted)"><span class="pitfall-icon">⚠️</span><span>Avoid generic, vague, or unprepared answers. Use specific examples.</span></div>';
-    document.getElementById('do-instead-text').textContent = 'Prepare a concrete story with measurable outcome.';
+    const fp = lang === 'de'
+      ? { p1: 'Vage oder allgemeine Antworten ohne konkretes Beispiel', p2: 'Keine Zahlen oder Ergebnisse nennen — Adjektive überzeugen weniger als Fakten', p3: 'Nur Theorie ohne Beweis aus echten Erfahrungen', di: 'Bereite eine konkrete Geschichte mit messbarem Ergebnis vor.' }
+      : { p1: 'Vague or generic answers with no concrete example', p2: 'No numbers or outcomes — adjectives convince far less than facts', p3: 'Theory only, without proof from real experience', di: 'Prepare a concrete story with a measurable outcome.' };
+    document.getElementById('pitfall-list').innerHTML = `
+      <div class="pitfall-item"><span class="pitfall-icon">⚠️</span><span>${fp.p1}</span></div>
+      <div class="pitfall-item"><span class="pitfall-icon">⚠️</span><span>${fp.p2}</span></div>
+      <div class="pitfall-item"><span class="pitfall-icon">⚠️</span><span>${fp.p3}</span></div>
+    `;
+    document.getElementById('do-instead-text').textContent = fp.di;
   }
 
   // Mark done button
